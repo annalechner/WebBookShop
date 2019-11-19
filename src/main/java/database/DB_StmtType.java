@@ -11,7 +11,8 @@ package database;
  */
 public enum DB_StmtType {
 
-    GET_BOOKS_FROM_AUTHOR("SELECT * FROM book");
+    GET_BOOKS_WITH_TITLE("SELECT * FROM book b WHERE title LIKE ?;");
+    
 
     private DB_StmtType(String sqlString) {
         this.sqlString = sqlString;
@@ -20,6 +21,6 @@ public enum DB_StmtType {
     private String sqlString;
 
     public String getSqlString() {
-        return sqlString;
+        return this.sqlString;
     }
 }

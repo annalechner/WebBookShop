@@ -43,10 +43,10 @@ public class DB_ConnectionPool implements DB_Config {
             }
             Connection connection = DriverManager.getConnection(DB_URL + DB_NAME, DB_USER, DB_PASSWD);
             conCnt++;
+            return connection;
         } else {
             return connPool.poll();
         }
-        return null;
     }
 
     public synchronized void releaseConnection(Connection connection) {

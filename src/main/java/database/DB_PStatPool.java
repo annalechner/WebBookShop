@@ -34,6 +34,7 @@ public class DB_PStatPool {
      
      public PreparedStatement getPStat(DB_StmtType stmtType) throws Exception{
          Connection connection = conPool.getConnection();
+         System.out.println(connection);
          Map<DB_StmtType, PreparedStatement> pStatMap = conMap.get(connection);
          if(pStatMap == null){
              pStatMap = new HashMap<>();
@@ -41,6 +42,7 @@ public class DB_PStatPool {
          }
          PreparedStatement pStat = pStatMap.get(stmtType);
          if(pStat == null){
+             System.out.println(stmtType.getSqlString());
              pStat = connection.prepareStatement(stmtType.getSqlString());
              pStatMap.put(stmtType, pStat);
          }

@@ -5,50 +5,22 @@
  */
 package beans;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 /**
  *
  * @author annalechner
  */
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
 public class Author implements Comparable<Author>{
     
     private String firstname;
     private String lastname;
     private String url;
-
-    public Author(String firstname, String lastname, String url) {
-        this.firstname = firstname;
-        this.lastname = lastname;
-        this.url = url;
-    }
-
-    public String getFirstname() {
-        return firstname;
-    }
-
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
-    }
-
-    public String getLastname() {
-        return lastname;
-    }
-
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
-    @Override
-    public String toString() {
-        return lastname + ", " + firstname;
-    }
 
     @Override
     public int compareTo(Author o) {
