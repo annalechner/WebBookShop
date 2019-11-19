@@ -17,7 +17,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 public class Publisher {
-    
     private String name;
     private String url;
 }

@@ -20,11 +20,14 @@ public class DB_Access {
     DB_PStatPool pStatPool = DB_PStatPool.getInstance();
     
     public List<Book> getAllBooksFromAuthor() throws Exception{
-        PreparedStatement  pStat = pStatPool.getPStat(DB_StmtType.GET_BOOKS_FROM_AUTHOR);
-        pStat.setString(1, "Sepp");
+        PreparedStatement  pStat = pStatPool.getPStat(DB_StmtType.GET_BOOKS_WITH_TITLE);
+        pStat.setString(1, "'%Using%'");
+       
         ResultSet rs = pStat.executeQuery();
         List<Book> bookList = new ArrayList<>();
+        
         while(rs.next()){
+            System.out.println(rs.getString(1));
 //            bookList.add(new Book(rs.getString(1),rs.getString(2),Double.parseDouble(rs.getString(3)),rs.getString(4)));
         }
         return bookList;
