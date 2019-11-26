@@ -3,11 +3,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.mycompany</groupId>
-    <artifactId>Bsp_202_WebBookShop</artifactId>
+    <artifactId>Exa_201_WebBookShop</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
 
-    <name>Bsp_202_WebBookShop</name>
+    <name>Exa_201_WebBookShop</name>
 
     <properties>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
