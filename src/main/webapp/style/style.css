@@ -1,0 +1,49 @@
+.container{
+    width:95vw;
+    margin-bottom: 700px;
+}
+body {
+    /*position: relative;*/
+    z-index: 1;
+    font-family: Verdana;
+}
+
+body:before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: url("../images/library.jpg") center center;
+    opacity: .2;
+}
+.btn-group-toggle{
+    background-color: lightgrey;
+}
+
+#myInput{
+    width: 95vw;
+}
+
+.well {
+    background: none;
+    height: 320px;
+}
+
+.table-scroll tbody {
+    position: absolute;
+    overflow-y: scroll;
+    height: 700px;
+}
+
+.table-scroll tr {
+    width: 95vw;
+    table-layout: fixed;
+    display: inline-table;
+}
+
+.table-scroll thead > tr > th {
+    border: none;
+}

@@ -4,6 +4,7 @@
     Author     : annalechner
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -13,46 +14,11 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+        <link href="style/style.css" rel="stylesheet" type="text/css"/>
+        <script src="scripts/script.js" type="text/javascript"></script>
         <title>Order Now!</title>
-        <script>
-            $(document).ready(function () {
-                $("#myInput").on("keyup", function () {
-                    var value = $(this).val().toLowerCase();
-                    $("#myTable tr").filter(function () {
-                        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-                    });
-                });
-            });
-        </script>
-        <style>
-            .container{
-                width: 900px;
-            }
-            body {
-                /*position: relative;*/
-                z-index: 1;
-            }
-
-            body:before {
-                content: "";
-                position: absolute;
-                z-index: -1;
-                top: 0;
-                bottom: 0;
-                left: 0;
-                right: 0;
-                background: url("images/library.jpg") center center;
-                opacity: .2;
-            }
-            #myInput{
-                width: 500px;
-            }
-            .btn-group-toggle{
-                background-color: lightgrey;
-            }
-        </style>
     </head>
-    <body>
+    <body><center>
         <div class="container">
             <center><h1>Bookshop Luna Krochner</h1></center>
             <div class="btn-group btn-group-toggle" data-toggle="buttons">
@@ -64,7 +30,7 @@
                 </label>
             </div>
             <input class="form-control" id="myInput" type="text" placeholder="Filter...">
-            <table class="table table-hover">
+            <table class="table table-hover table-scroll">
                 <thead>
                     <tr>
                         <th scope="col">Titel</th>
@@ -74,14 +40,24 @@
                     </tr>
                 </thead>
                 <tbody>
+                    <c:forEach var="item" items="${books}">
                     <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
+                        <td>${item.title}</td>
+                        <td><c:forEach var="author" items ="${item.authors}">${author.firstname} ${author.lastname}</br><a href="#">${author.url}</a></br></c:forEach></td>
+                        <td>${item.publisher.name}</td>
+                        <td>${item.publisher.url}</td>
                         <td>@mdo</td>
-                    </tr>
+                    </tr></c:forEach>
+                        private String title;
+    private String url;
+    private double price;
+    private Publisher publisher;
+    private String isbn;
+    private List<Author> authors = new ArrayList<>();
+
                 </tbody>
             </table>
+</div>
             <label>Sortieren nach:</label>
             <div class="form-check">
                 <input type="checkbox" class="form-check-input" id="sortCheck1">
@@ -92,5 +68,6 @@
                 <label class="form-check-label" for="sortCheck3">Preis</label>
             </div>
         </div>
+    </center>
     </body>
 </html>
