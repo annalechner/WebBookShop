@@ -48,7 +48,7 @@
                 width: 500px;
             }
             .btn-group-toggle{
-                color: black;
+                background-color: lightgrey;
             }
         </style>
     </head>
