@@ -1,6 +1,6 @@
 .container{
     width:95vw;
-    margin-bottom: 700px;
+    margin-bottom: 75vh;
 }
 body {
     position: relative;
@@ -36,7 +36,7 @@ body:before {
 .table-scroll tbody {
     position: absolute;
     overflow-y: scroll;
-    height: 700px;
+    height: 75vh;
 }
 
 .table-scroll tr {
