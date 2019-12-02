@@ -34,40 +34,36 @@
                 <thead>
                     <tr>
                         <th scope="col">Titel</th>
+                        <th scope="col">ISBN</th>
                         <th scope="col">Autor(en)</th>
+                        <th scope="col">Verlag</th>
                         <th scope="col">Preis</th>
-                        <th scope="col">Handle</th>
                     </tr>
                 </thead>
                 <tbody>
                     <c:forEach var="item" items="${books}">
-                    <tr>
-                        <td>${item.title}</td>
-                        <td><c:forEach var="author" items ="${item.authors}">${author.firstname} ${author.lastname}</br><a href="#">${author.url}</a></br></c:forEach></td>
-                        <td>${item.publisher.name}</td>
-                        <td>${item.publisher.url}</td>
-                        <td>@mdo</td>
-                    </tr></c:forEach>
-                        private String title;
-    private String url;
-    private double price;
-    private Publisher publisher;
-    private String isbn;
-    private List<Author> authors = new ArrayList<>();
-
+                        <tr>
+                            <td>${item.title}</td>
+                            <td>${item.isbn}</td>
+                            <td><c:forEach var="author" items ="${item.authors}">${author.firstname} ${author.lastname}</br><a href="#">${author.url}</a></br></c:forEach></td>
+                            <td>${item.publisher.name}</br><a href="#">${item.publisher.url}</a></td>
+                            <td>${String.format("%.2f €",item.price)}</td>
+                        </tr></c:forEach>
                 </tbody>
             </table>
-</div>
-            <label>Sortieren nach:</label>
-            <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="sortCheck1">
-                <label class="form-check-label" for="sortCheck1">Titel</label>
-                <input type="checkbox" class="form-check-input" id="sortCheck2">
-                <label class="form-check-label" for="sortCheck2">Autor(en)</label>
-                <input type="checkbox" class="form-check-input" id="sortCheck3">
-                <label class="form-check-label" for="sortCheck3">Preis</label>
-            </div>
         </div>
-    </center>
-    </body>
+        <label>Sortieren nach:</label>
+        <div class="form-check">
+            <form action="BookController" method="POST">
+                <input type="checkbox" name="title" onclick="submit();" class="form-check-input" id="sortCheck1" <c:if test="${selTitle =='checked'}">checked</c:if>>
+                <label class="form-check-label" for="sortCheck1">Titel</label>
+                <input type="checkbox" name="author" onclick="submit();" class="form-check-input" id="sortCheck2" <c:if test="${selAuthor =='checked'}">checked</c:if>>
+                <label class="form-check-label" for="sortCheck2">Autor(en)</label>
+                <input type="checkbox" name="price" onclick="submit();" class="form-check-input" id="sortCheck3" <c:if test="${selPrice =='checked'}">checked</c:if>>
+                <label class="form-check-label" for="sortCheck3">Preis</label>
+            </form>
+        </div>
+    </div>
+</center>
+</body>
 </html>

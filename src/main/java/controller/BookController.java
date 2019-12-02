@@ -6,12 +6,17 @@
 package controller;
 
 import database.DB_Access;
+import beans.Book;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Comparator;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -24,6 +29,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "BookController", urlPatterns = {"/BookController"})
 public class BookController extends HttpServlet {
+
     private DB_Access access;
 
     @Override
@@ -32,7 +38,6 @@ public class BookController extends HttpServlet {
         access = DB_Access.getInstance();
     }
 
-    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -44,11 +49,7 @@ public class BookController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            request.getSession().setAttribute("books", access.getAllBooks());
-        } catch (Exception ex) {
-            Logger.getLogger(BookController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+
         request.getRequestDispatcher("jsps/bookJsp.jsp").forward(request, response);
     }
 
@@ -64,6 +65,19 @@ public class BookController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        ServletContext context = this.getServletContext();
+        if (context.getAttribute("allBooks") == null) {
+            try {
+                context.setAttribute("allBooks", access.getAllBooks());
+            } catch (Exception ex) {
+                Logger.getLogger(BookController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        if(request.getSession().getAttribute("books")==null){
+            request.getSession().setAttribute("books", (List<Book>)context.getAttribute("allBooks"));
+        }
+        System.out.println("GET");
+
         processRequest(request, response);
     }
 
@@ -78,6 +92,28 @@ public class BookController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        ServletContext context = this.getServletContext();
+        Comparator<Book> comp = Comparator.naturalOrder();
+        System.out.println(request.getParameterMap().keySet());
+        if (request.getParameterMap().keySet().contains("selTitle")) {
+            comp = comp.thenComparing(Book::getTitle);
+            request.getSession().setAttribute("title", "checked");
+        }else{
+            request.getSession().removeAttribute("title");
+        }
+        if (request.getParameterMap().keySet().contains("selAuthor")) {
+            comp = comp.thenComparing(Book::getFirstAuthor);
+             request.getSession().setAttribute("author", "checked");
+        }else{
+            request.getSession().removeAttribute("author");
+        }
+        if (request.getParameterMap().keySet().contains("selPrice")) {
+            comp = comp.thenComparing(Book::getPrice);
+             request.getSession().setAttribute("price", "checked");
+        }else{
+            request.getSession().removeAttribute("price");
+        }
+        request.getSession().setAttribute("books", ((List<Book>)context.getAttribute("allBooks")).stream().sorted(comp).collect(Collectors.toList()));
         processRequest(request, response);
     }
 

@@ -5,6 +5,7 @@
  */
 package beans;
 
+import java.io.Serializable;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,15 +17,19 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class Author implements Comparable<Author>{
+public class Author implements Comparable<Author>, Serializable{
     
     private String firstname;
     private String lastname;
     private String url;
+    private int rank;
 
+
+    
     @Override
     public int compareTo(Author o) {
         return (this.lastname+this.firstname).compareTo(o.lastname+o.firstname);
 
     }
+   
 }

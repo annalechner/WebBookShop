@@ -6,6 +6,7 @@ body {
     /*position: relative;*/
     z-index: 1;
     font-family: Verdana;
+    font-weight: bold;
 }
 
 body:before {
@@ -46,4 +47,9 @@ body:before {
 
 .table-scroll thead > tr > th {
     border: none;
+}
+
+th{
+    background: rgba(0, 0, 0, 0.3);
+    margin-top: 10px;
 }

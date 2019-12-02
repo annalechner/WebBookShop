@@ -12,7 +12,7 @@ package database;
 public enum DB_StmtType {
 
     GET_ALL_BOOKS("SELECT * FROM book b INNER JOIN publisher p ON p.publisher_id = b.publisher_id;"),
-    GET_AUTHORS_FOR_BOOK("SELECT a.author_id, a.lastname, a.firstname, a.url  FROM book b INNER JOIN bookauthor ba ON b.book_id = ba.book_id "
+    GET_AUTHORS_FOR_BOOK("SELECT a.author_id, a.lastname, a.firstname, a.url, ba.rank FROM book b INNER JOIN bookauthor ba ON b.book_id = ba.book_id "
             + "INNER JOIN author a ON ba.author_id = a.author_id WHERE b.book_id = ?;");
 
     private DB_StmtType(String sqlString) {
