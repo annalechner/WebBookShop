@@ -45,7 +45,7 @@
                         <tr>
                             <td>${item.title}</td>
                             <td>${item.isbn}</td>
-                            <td><c:forEach var="author" items ="${item.authors}">${author.firstname} ${author.lastname}</br><a href="#">${author.url}</a></br></c:forEach></td>
+                            <td><c:forEach var="author" items ="${item.authors}">${author.lastname} ${author.firstname}</br><a href="#">${author.url}</a></br></c:forEach></td>
                             <td>${item.publisher.name}</br><a href="#">${item.publisher.url}</a></td>
                             <td>${String.format("%.2f €",item.price)}</td>
                         </tr></c:forEach>
@@ -55,11 +55,11 @@
         <label>Sortieren nach:</label>
         <div class="form-check">
             <form action="BookController" method="POST">
-                <input type="checkbox" name="title" onclick="submit();" class="form-check-input" id="sortCheck1" <c:if test="${selTitle =='checked'}">checked</c:if>>
+                <input type="checkbox" name="selTitle" onclick="submit();" class="form-check-input" id="sortCheck1" <c:if test="${title =='checked'}">checked</c:if>>
                 <label class="form-check-label" for="sortCheck1">Titel</label>
-                <input type="checkbox" name="author" onclick="submit();" class="form-check-input" id="sortCheck2" <c:if test="${selAuthor =='checked'}">checked</c:if>>
+                <input type="checkbox" name="selAuthor" onclick="submit();" class="form-check-input" id="sortCheck2" <c:if test="${author =='checked'}">checked</c:if>>
                 <label class="form-check-label" for="sortCheck2">Autor(en)</label>
-                <input type="checkbox" name="price" onclick="submit();" class="form-check-input" id="sortCheck3" <c:if test="${selPrice =='checked'}">checked</c:if>>
+                <input type="checkbox" name="selPrice" onclick="submit();" class="form-check-input" id="sortCheck3" <c:if test="${price =='checked'}">checked</c:if>>
                 <label class="form-check-label" for="sortCheck3">Preis</label>
             </form>
         </div>

@@ -49,7 +49,6 @@ public class BookController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
         request.getRequestDispatcher("jsps/bookJsp.jsp").forward(request, response);
     }
 
@@ -73,8 +72,8 @@ public class BookController extends HttpServlet {
                 Logger.getLogger(BookController.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        if(request.getSession().getAttribute("books")==null){
-            request.getSession().setAttribute("books", (List<Book>)context.getAttribute("allBooks"));
+        if (request.getSession().getAttribute("books") == null) {
+            request.getSession().setAttribute("books", (List<Book>) context.getAttribute("allBooks"));
         }
         System.out.println("GET");
 
@@ -98,22 +97,22 @@ public class BookController extends HttpServlet {
         if (request.getParameterMap().keySet().contains("selTitle")) {
             comp = comp.thenComparing(Book::getTitle);
             request.getSession().setAttribute("title", "checked");
-        }else{
+        } else {
             request.getSession().removeAttribute("title");
         }
         if (request.getParameterMap().keySet().contains("selAuthor")) {
             comp = comp.thenComparing(Book::getFirstAuthor);
-             request.getSession().setAttribute("author", "checked");
-        }else{
+            request.getSession().setAttribute("author", "checked");
+        } else {
             request.getSession().removeAttribute("author");
         }
         if (request.getParameterMap().keySet().contains("selPrice")) {
             comp = comp.thenComparing(Book::getPrice);
-             request.getSession().setAttribute("price", "checked");
-        }else{
+            request.getSession().setAttribute("price", "checked");
+        } else {
             request.getSession().removeAttribute("price");
         }
-        request.getSession().setAttribute("books", ((List<Book>)context.getAttribute("allBooks")).stream().sorted(comp).collect(Collectors.toList()));
+        request.getSession().setAttribute("books", ((List<Book>) context.getAttribute("allBooks")).stream().sorted(comp).collect(Collectors.toList()));
         processRequest(request, response);
     }
 

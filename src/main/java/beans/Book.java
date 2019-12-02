@@ -33,7 +33,7 @@ public class Book implements Serializable, Comparable<Book>{
     public int compareTo(Book o) {
         return 0;
     }
-    public Author getFirstAuthor(){
-        return authors.get(0);
+    public String getFirstAuthor(){
+        return authors.get(0).getLastname();
     }
 }
