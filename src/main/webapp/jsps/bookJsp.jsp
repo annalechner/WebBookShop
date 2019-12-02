@@ -14,7 +14,7 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-        <link href="style/style.css" rel="stylesheet" type="text/css"/>
+        <link href="style/styleBook.css" rel="stylesheet" type="text/css"/>
         <script src="scripts/script.js" type="text/javascript"></script>
         <title>Order Now!</title>
     </head>
@@ -30,7 +30,7 @@
                 </label>
             </div>
             <input class="form-control" id="myInput" type="text" placeholder="Filter...">
-            <table class="table table-hover table-scroll">
+            <table id="myTable" class="table table-hover table-scroll">
                 <thead>
                     <tr>
                         <th scope="col">Titel</th>
@@ -38,6 +38,7 @@
                         <th scope="col">Autor(en)</th>
                         <th scope="col">Verlag</th>
                         <th scope="col">Preis</th>
+                        <th scope="col">Bestellen</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -48,18 +49,23 @@
                             <td><c:forEach var="author" items ="${item.authors}">${author.lastname} ${author.firstname}</br><a href="#">${author.url}</a></br></c:forEach></td>
                             <td>${item.publisher.name}</br><a href="#">${item.publisher.url}</a></td>
                             <td>${String.format("%.2f €",item.price)}</td>
+                            <td>
+                                <input name="amount" type="number" 
+                                       value="${item.amount > 0 ? item.amount : 0}" 
+                                       min="0" max="10" step="1"/>
+                            </td>
                         </tr></c:forEach>
-                </tbody>
-            </table>
-        </div>
-        <label>Sortieren nach:</label>
-        <div class="form-check">
-            <form action="BookController" method="POST">
-                <input type="checkbox" name="selTitle" onclick="submit();" class="form-check-input" id="sortCheck1" <c:if test="${title =='checked'}">checked</c:if>>
-                <label class="form-check-label" for="sortCheck1">Titel</label>
-                <input type="checkbox" name="selAuthor" onclick="submit();" class="form-check-input" id="sortCheck2" <c:if test="${author =='checked'}">checked</c:if>>
-                <label class="form-check-label" for="sortCheck2">Autor(en)</label>
-                <input type="checkbox" name="selPrice" onclick="submit();" class="form-check-input" id="sortCheck3" <c:if test="${price =='checked'}">checked</c:if>>
+                    </tbody>
+                </table>
+            </div>
+            <label>Sortieren nach:</label>
+            <div class="form-check">
+                <form action="BookController" method="POST">
+                    <input type="checkbox" name="selTitle" onclick="submit();" class="form-check-input" id="sortCheck1" <c:if test="${title =='checked'}">checked</c:if>>
+                    <label class="form-check-label" for="sortCheck1">Titel</label>
+                    <input type="checkbox" name="selAuthor" onclick="submit();" class="form-check-input" id="sortCheck2" <c:if test="${author =='checked'}">checked</c:if>>
+                    <label class="form-check-label" for="sortCheck2">Autor(en)</label>
+                    <input type="checkbox" name="selPrice" onclick="submit();" class="form-check-input" id="sortCheck3" <c:if test="${price =='checked'}">checked</c:if>>
                 <label class="form-check-label" for="sortCheck3">Preis</label>
             </form>
         </div>

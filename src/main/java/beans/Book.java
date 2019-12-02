@@ -8,7 +8,6 @@ package beans;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -28,6 +27,7 @@ public class Book implements Serializable, Comparable<Book>{
     private Publisher publisher;
     private String isbn;
     private List<Author> authors = new ArrayList<>();
+    private int amount;
 
     @Override
     public int compareTo(Book o) {

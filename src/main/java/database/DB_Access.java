@@ -53,7 +53,7 @@ public class DB_Access {
             authors = authors.stream().sorted(Comparator.comparing(Author::getRank)).collect(Collectors.toList());
             pStatPool.releasePStat(prepStat);
             Publisher pub = new Publisher(rs.getString(8),rs.getString(9));
-            bookList.add(new Book(rs.getString(2),rs.getString(3),Double.parseDouble(rs.getString(4)),pub,rs.getString(6),authors));
+            bookList.add(new Book(rs.getString(2),rs.getString(3),Double.parseDouble(rs.getString(4)),pub,rs.getString(6),authors,0));
         }
         pStatPool.releasePStat(pStat);
         return bookList;

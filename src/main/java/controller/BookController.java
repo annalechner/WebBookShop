@@ -76,7 +76,6 @@ public class BookController extends HttpServlet {
             request.getSession().setAttribute("books", (List<Book>) context.getAttribute("allBooks"));
         }
         System.out.println("GET");
-
         processRequest(request, response);
     }
 

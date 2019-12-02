@@ -6,9 +6,14 @@
 $(document).ready(function () {
     $("#myInput").on("keyup", function () {
         var value = $(this).val().toLowerCase();
-        $("#myTable tr").filter(function () {
-            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-        });
+        if ($('#option1').is(':checked')) {
+            $("#myTable tr td:nth-child(1)").filter(function () {
+                $(this).parent().toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        } else if ($('#option2').is(':checked')) {
+            $("#myTable tr td:nth-child(3)").filter(function () {
+                $(this).parent().toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        }
     });
 });
-
