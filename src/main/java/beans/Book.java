@@ -36,4 +36,7 @@ public class Book implements Serializable, Comparable<Book>{
     public String getFirstAuthor(){
         return authors.get(0).getLastname();
     }
+    public String getUniqueString(){
+        return title+isbn;
+    }
 }

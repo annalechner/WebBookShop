@@ -65,15 +65,14 @@ public class BookController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         ServletContext context = this.getServletContext();
-        if (context.getAttribute("allBooks") == null) {
-            try {
-                context.setAttribute("allBooks", access.getAllBooks());
-            } catch (Exception ex) {
-                Logger.getLogger(BookController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
+        System.out.println(request.getParameterMap().keySet() + " + ");
+
         if (request.getSession().getAttribute("books") == null) {
-            request.getSession().setAttribute("books", (List<Book>) context.getAttribute("allBooks"));
+            try {
+                request.getSession().setAttribute("books", access.getAllBooks());
+            } catch (Exception e) {
+
+            }
         }
         System.out.println("GET");
         processRequest(request, response);
@@ -91,28 +90,50 @@ public class BookController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         ServletContext context = this.getServletContext();
-        Comparator<Book> comp = Comparator.naturalOrder();
-        System.out.println(request.getParameterMap().keySet());
-        if (request.getParameterMap().keySet().contains("selTitle")) {
-            comp = comp.thenComparing(Book::getTitle);
-            request.getSession().setAttribute("title", "checked");
+
+        System.out.println(request.getParameterMap().keySet() + " - ");
+        if (request.getParameterMap().keySet().contains("wk")) {
+            request.getRequestDispatcher("jsps/warenkorbJsp.jsp").forward(request, response);
+        } else if (request.getParameterMap().keySet().contains("cheat")) {
+            for (Book book : (List<Book>) request.getSession().getAttribute("books")) {
+                if (book.getUniqueString().equals(request.getParameter("cheat"))) {
+                    book.setAmount(book.getAmount() + 1);
+                }
+                System.out.println(book);
+            }
+            processRequest(request, response);
+        } else if (request.getParameterMap().keySet().contains("reset")) {
+            System.out.println("test");
+            request.getSession().removeAttribute("books");
+            try {
+                request.getSession().setAttribute("books", access.getAllBooks());
+            } catch (Exception ex) {
+                Logger.getLogger(BookController.class.getName()).log(Level.SEVERE, null, ex);
+            }  
+            processRequest(request, response);
         } else {
-            request.getSession().removeAttribute("title");
+            Comparator<Book> comp = Comparator.naturalOrder();
+            if (request.getParameterMap().keySet().contains("selTitle")) {
+                comp = comp.thenComparing(Book::getTitle);
+                request.getSession().setAttribute("title", "checked");
+            } else {
+                request.getSession().removeAttribute("title");
+            }
+            if (request.getParameterMap().keySet().contains("selAuthor")) {
+                comp = comp.thenComparing(Book::getFirstAuthor);
+                request.getSession().setAttribute("author", "checked");
+            } else {
+                request.getSession().removeAttribute("author");
+            }
+            if (request.getParameterMap().keySet().contains("selPrice")) {
+                comp = comp.thenComparing(Book::getPrice);
+                request.getSession().setAttribute("price", "checked");
+            } else {
+                request.getSession().removeAttribute("price");
+            }
+            request.getSession().setAttribute("books", ((List<Book>) context.getAttribute("allBooks")).stream().sorted(comp).collect(Collectors.toList()));
+            processRequest(request, response);
         }
-        if (request.getParameterMap().keySet().contains("selAuthor")) {
-            comp = comp.thenComparing(Book::getFirstAuthor);
-            request.getSession().setAttribute("author", "checked");
-        } else {
-            request.getSession().removeAttribute("author");
-        }
-        if (request.getParameterMap().keySet().contains("selPrice")) {
-            comp = comp.thenComparing(Book::getPrice);
-            request.getSession().setAttribute("price", "checked");
-        } else {
-            request.getSession().removeAttribute("price");
-        }
-        request.getSession().setAttribute("books", ((List<Book>) context.getAttribute("allBooks")).stream().sorted(comp).collect(Collectors.toList()));
-        processRequest(request, response);
     }
 
     /**
