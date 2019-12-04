@@ -17,7 +17,11 @@ body:before {
     bottom: 0;
     left: 0;
     right: 0;
-    background: url("../images/library.jpg") center center;
+    background: url("../images/library.jpg") no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
     opacity: .2;
 }
 .btn-group-toggle{
@@ -33,19 +37,19 @@ body:before {
     height: 320px;
 }
 
-.table-scroll tbody {
+#myTable tbody {
     position: absolute;
-    overflow-y: scroll;
+    /*overflow-y: scroll;*/
     height: 70vh;
 }
 
-.table-scroll tr {
+#myTable tr {
     width: 95vw;
     table-layout: fixed;
     display: inline-table;
 }
 
-.table-scroll thead > tr > th {
+#myTable thead > tr > th {
     border: none;
 }
 

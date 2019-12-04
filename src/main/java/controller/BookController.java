@@ -92,7 +92,10 @@ public class BookController extends HttpServlet {
         ServletContext context = this.getServletContext();
 
         System.out.println(request.getParameterMap().keySet() + " - ");
-        if (request.getParameterMap().keySet().contains("wk")) {
+        if (request.getParameterMap().keySet().contains("back")) {
+            request.getRequestDispatcher("jsps/bookJsp.jsp").forward(request, response);
+        }
+        else if (request.getParameterMap().keySet().contains("wk")) {
             request.getRequestDispatcher("jsps/warenkorbJsp.jsp").forward(request, response);
         } else if (request.getParameterMap().keySet().contains("cheat")) {
             for (Book book : (List<Book>) request.getSession().getAttribute("books")) {

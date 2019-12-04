@@ -19,14 +19,13 @@
         <title>Order Now!</title>
     </head>
     <body>
-
         <div class="container">
             <center><h1>Bookshop Luna Krochner</h1></center>
             <form id="imageWK"  action="BookController" method="POST">
-                <input type="image" onclick="submit();" width="40" height="40" src="images/warenkorb.jpg"/>
+                <input type="image" onclick="submit();" width="60" height="60" src="images/warenkorb.jpg"/>
+                <span>Weiter</span>
                 <input type="hidden" name="wk" value="test"/>
             </form>
-
             <center>
                 <div class="btn-group btn-group-toggle" data-toggle="buttons">
                     <label class="btn btn-secondary active">
@@ -37,7 +36,7 @@
                     </label>
                 </div>
                 <input class="form-control" id="myInput" type="text" placeholder="Filter...">
-                <table id="myTable" class="table table-hover table-scroll">
+                <table id="myTable" class="table table-hover">
                     <thead>
                         <tr>
                             <th scope="col">Titel</th>

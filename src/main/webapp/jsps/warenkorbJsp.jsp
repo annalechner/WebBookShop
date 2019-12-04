@@ -23,7 +23,10 @@
         <div class="container">
             <center><h1>Bookshop Luna Krochner</h1>
                 <h3>Warenkorb</h3>
-                <table id="myTable" class="table table-hover table-scroll">
+                <form method="POST" action="BookController">
+                    <input type="submit" class="btn btn-primary" name="back" value="Zurück"/>
+                </form>
+                <table id="myTable" class="table table-hover">
                     <thead>
                         <tr>
                             <th scope="col">Titel</th>
@@ -35,14 +38,14 @@
                     <tbody>
                         <c:forEach var="item" items="${books}">
                             <c:if test="${item.amount>0}">
-                            <tr>
-                                <td>${item.title}</td>
-                                <td>${item.isbn}</td>
-                                <td>${String.format("%.2f €",item.price)}</td>
-                                <td>${item.amount}</td>
-                            </tr></c:if></c:forEach>
-                        </tbody>
-                    </table>
+                                <tr>
+                                    <td>${item.title}</td>
+                                    <td>${item.isbn}</td>
+                                    <td>${String.format("%.2f €",item.price)}</td>
+                                    <td>${item.amount}</td>
+                                </tr></c:if></c:forEach>
+                    </tbody>
+                </table>
 
                 <form id="formBack" method="POST" action="BookController">
                     <input type="submit" class="btn btn-primary" name="reset" value="Bestellen"/>
