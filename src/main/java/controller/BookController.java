@@ -134,7 +134,11 @@ public class BookController extends HttpServlet {
             } else {
                 request.getSession().removeAttribute("price");
             }
-            request.getSession().setAttribute("books", ((List<Book>) context.getAttribute("allBooks")).stream().sorted(comp).collect(Collectors.toList()));
+            try {
+                request.getSession().setAttribute("books", access.getAllBooks().stream().sorted(comp).collect(Collectors.toList()));
+            } catch (Exception ex) {
+                Logger.getLogger(BookController.class.getName()).log(Level.SEVERE, null, ex);
+            }
             processRequest(request, response);
         }
     }

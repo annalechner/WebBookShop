@@ -8,21 +8,24 @@ body {
     font-family: Verdana;
     font-weight: bold;
 }
-
-body:before {
-    content: "";
+#sasftest{
+        content: "";
     position: absolute;
     z-index: -1;
     top: 0;
     bottom: 0;
     left: 0;
     right: 0;
-    background: url("../images/library.jpg") no-repeat center center fixed;
-    -webkit-background-size: cover;
+        -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
     opacity: .2;
+}
+
+body{
+    background: url("../images/library.png") no-repeat center center fixed;
+
 }
 .btn-group-toggle{
     background-color: lightgrey;
@@ -57,13 +60,13 @@ th{
     background: rgba(0, 0, 0, 0.3);
 }
 #pfusch{
-    margin-top: 70vh;
+    height: 95vh;
 }
 #imageWK{
     margin-left: 90vw;
 }
 
 #formBack{
-     margin-top: 79vh;
+     margin-top: 75vh;
      margin-bottom:16px;
 }
