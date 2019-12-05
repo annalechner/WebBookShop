@@ -73,7 +73,6 @@ public class BookController extends HttpServlet {
         if (request.getSession().getAttribute("books") == null) {
             try {
                 request.getSession().setAttribute("books", access.getAllBooks());
-                request.getSession().setAttribute("title", "checked");
             } catch (Exception e) {
 
             }
