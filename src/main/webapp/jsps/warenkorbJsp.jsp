@@ -44,14 +44,28 @@
                                     <td>${String.format("%.2f €",item.price)}</td>
                                     <td>${item.amount}</td>
                                 </tr></c:if></c:forEach>
+                                <tr>
+                            <h3>Gesamtpreis: ${String.format("%.2f €",gesamtpreis)}</h3>
+                    </tr>
                     </tbody>
                 </table>
-
-                <form id="formBack" method="POST" action="BookController">
-                    <input type="submit" class="btn btn-primary" name="reset" value="Bestellen"/>
-                </form>
+                <table>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <form id="formBack" method="POST" action="BookController">
+                                    <input type="submit" class="btn btn-primary" name="reset" value="Bestellen"/>
+                                </form>
+                            </td>
+                            <td>
+                                <form id="formBack" method="POST" action="BookController">
+                                    <input type="submit" class="btn btn-primary" name="resetWarenkorb" value="Warenkorb leeren"/>
+                                </form>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </center>
-
         </div>
     </body>
 </html>

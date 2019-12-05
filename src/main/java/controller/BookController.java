@@ -9,6 +9,7 @@ import database.DB_Access;
 import beans.Book;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.logging.Level;
@@ -31,6 +32,8 @@ import javax.servlet.http.HttpServletResponse;
 public class BookController extends HttpServlet {
 
     private DB_Access access;
+    private Comparator<Book> comp = Comparator.naturalOrder();
+    private List<Book> warenkorb = new ArrayList<>();
 
     @Override
     public void init(ServletConfig config) throws ServletException {
@@ -65,16 +68,17 @@ public class BookController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         ServletContext context = this.getServletContext();
-        System.out.println(request.getParameterMap().keySet() + " + ");
+//        System.out.println(request.getParameterMap().keySet() + " + ");
 
         if (request.getSession().getAttribute("books") == null) {
             try {
                 request.getSession().setAttribute("books", access.getAllBooks());
+                request.getSession().setAttribute("title", "checked");
             } catch (Exception e) {
 
             }
         }
-        System.out.println("GET");
+//        System.out.println("GET");
         processRequest(request, response);
     }
 
@@ -91,31 +95,46 @@ public class BookController extends HttpServlet {
             throws ServletException, IOException {
         ServletContext context = this.getServletContext();
 
-        System.out.println(request.getParameterMap().keySet() + " - ");
+//        System.out.println(request.getParameterMap().keySet() + " - ");
         if (request.getParameterMap().keySet().contains("back")) {
             request.getRequestDispatcher("jsps/bookJsp.jsp").forward(request, response);
-        }
-        else if (request.getParameterMap().keySet().contains("wk")) {
+        } else if (request.getParameterMap().keySet().contains("wk")) {
+            float price = 0f;
+            for (Book book : warenkorb) {
+                price += book.getPrice();
+            }
+            request.getSession().setAttribute("gesamtpreis", price);
             request.getRequestDispatcher("jsps/warenkorbJsp.jsp").forward(request, response);
         } else if (request.getParameterMap().keySet().contains("cheat")) {
             for (Book book : (List<Book>) request.getSession().getAttribute("books")) {
                 if (book.getUniqueString().equals(request.getParameter("cheat"))) {
+                    warenkorb.add(book);
                     book.setAmount(book.getAmount() + 1);
                 }
-                System.out.println(book);
             }
             processRequest(request, response);
         } else if (request.getParameterMap().keySet().contains("reset")) {
-            System.out.println("test");
+            warenkorb.clear();
+            request.getSession().setAttribute("gesamtpreis", 0f);
             request.getSession().removeAttribute("books");
             try {
                 request.getSession().setAttribute("books", access.getAllBooks());
             } catch (Exception ex) {
                 Logger.getLogger(BookController.class.getName()).log(Level.SEVERE, null, ex);
-            }  
+            }
             processRequest(request, response);
+        } else if (request.getParameterMap().keySet().contains("resetWarenkorb")) {
+            warenkorb.clear();
+            request.getSession().setAttribute("gesamtpreis", 0f);
+            request.getSession().removeAttribute("books");
+            try {
+                request.getSession().setAttribute("books", access.getAllBooks());
+            } catch (Exception ex) {
+                Logger.getLogger(BookController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            request.getRequestDispatcher("/jsps/warenkorbJsp.jsp").forward(request, response);
         } else {
-            Comparator<Book> comp = Comparator.naturalOrder();
+            comp = Comparator.naturalOrder();
             if (request.getParameterMap().keySet().contains("selTitle")) {
                 comp = comp.thenComparing(Book::getTitle);
                 request.getSession().setAttribute("title", "checked");

@@ -41,7 +41,7 @@ public class DB_PStatPool {
          }
          PreparedStatement pStat = pStatMap.get(stmtType);
          if(pStat == null){
-             System.out.println(stmtType.getSqlString());
+//             System.out.println(stmtType.getSqlString());
              pStat = connection.prepareStatement(stmtType.getSqlString());
              pStatMap.put(stmtType, pStat);
          }
